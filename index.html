@@ -5,9 +5,14 @@
 <script>
 window.onload = function () {
 
+// dataPoints creation, add one if line is added
 var dataPoints1 = [];
 var dataPoints2 = [];
 var dataPoints3 = [];
+var dataPoints4 = [];
+var dataPoints5 = [];
+var dataPoints6 = [];
+var dataPoints7 = [];
 
 var chart = new CanvasJS.Chart("chartContainer", {
 	zoomEnabled: false,
@@ -28,10 +33,11 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	legend: {
 		cursor:"pointer",
 		verticalAlign: "top",
-		fontSize: 22,
+		fontSize: 15,
 		fontColor: "dimGrey",
 		itemclick : toggleDataSeries
 	},
+	// Line data points creations thing, add one if a line is added
 	data: [{ 
 			type: "line",
 			xValueType: "dateTime",
@@ -49,13 +55,45 @@ var chart = new CanvasJS.Chart("chartContainer", {
 			name: "Line 2",
 			dataPoints: dataPoints2
 		},
+		{ 
+			type: "line",
+			xValueType: "dateTime",
+			yValueFormatString: "####.00",
+			showInLegend: true,
+			name: "Line 3",
+			dataPoints: dataPoints3
+		},
+		{ 
+			type: "line",
+			xValueType: "dateTime",
+			yValueFormatString: "####.00",
+			showInLegend: true,
+			name: "Line 4",
+			dataPoints: dataPoints4
+		},
+		{ 
+			type: "line",
+			xValueType: "dateTime",
+			yValueFormatString: "####.00",
+			showInLegend: true,
+			name: "Line 5",
+			dataPoints: dataPoints5
+		},
+		{ 
+			type: "line",
+			xValueType: "dateTime",
+			yValueFormatString: "####.00",
+			showInLegend: true,
+			name: "Line 6",
+			dataPoints: dataPoints6
+		},
 		{				
 			type: "line",
 			xValueType: "dateTime",
 			yValueFormatString: "####.00",
 			showInLegend: true,
-			name: "Line 3" ,
-			dataPoints: dataPoints3
+			name: "Line 7" ,
+			dataPoints: dataPoints7
 	}]
 });
 
@@ -69,12 +107,17 @@ function toggleDataSeries(e) {
 	chart.render();
 }
 
-var updateInterval = 7;
+var updateInterval = 200;
 var dataLength = 20;
 
+// Lines variables creation
 var yValue1 = 0; 
 var yValue2 = 0;
 var yValue3 = 0;
+var yValue4 = 0;
+var yValue5 = 0;
+var yValue6 = 0;
+var yValue7 = 0;
 
 var xVal = 0;
 
@@ -88,17 +131,21 @@ time.setSeconds(time.getSeconds());
 
 function updateChart(count) {
 	count = count || 1;
-	var deltaY1, deltaY2, deltaY3;
 	for (var i = 0; i < count; i++) {
 		// xVal++;
 		time.setTime(time.getTime() + updateInterval);
 
-	yValue1 = Math.round((Math.random()*100)/10);
-	yValue2 = Math.round((Math.random()*100)/10);
-	yValue3 = Math.round((Math.random()*100)/10);
+// where to input the live values for lines
+	yValue1 = 10;
+	yValue2 = 20;
+	yValue3 = 30;
+	yValue4 = 40;
+	yValue5 = 50;
+	yValue6 = 60;
+	yValue7 = 70;
 
 
-
+// sends the data to the graph, add one if line is added
 	dataPoints1.push({
 		x: time.getTime(),
 		y: yValue1
@@ -111,13 +158,34 @@ function updateChart(count) {
 		x: time.getTime(),
 		y: yValue3
 	});
+	dataPoints4.push({
+		x: time.getTime(),
+		y: yValue4
+	});
+	dataPoints5.push({
+		x: time.getTime(),
+		y: yValue5
+	});
+	dataPoints6.push({
+		x: time.getTime(),
+		y: yValue6
+	});
+	dataPoints7.push({
+		x: time.getTime(),
+		y: yValue7
+	});
 	}
 
-
+	// Legend at screen top, add one if a line needs to be added
 	chart.options.data[0].legendText = " Line 1:  " + yValue1;
 	chart.options.data[1].legendText = " Line 2:  " + yValue2; 
 	chart.options.data[2].legendText = " Line 3:  " + yValue3; 
+	chart.options.data[3].legendText = " Line 4:  " + yValue4; 
+	chart.options.data[4].legendText = " Line 5:  " + yValue5; 
+	chart.options.data[5].legendText = " Line 6:  " + yValue6; 
+	chart.options.data[6].legendText = " Line 7:  " + yValue7; 
 
+// So the x axis shifts and stuff add one if a line is added
 	if (dataPoints1.length > dataLength) {
 		dataPoints1.shift();
 	}
@@ -126,6 +194,18 @@ function updateChart(count) {
 	}
 	if (dataPoints3.length > dataLength) {
 		dataPoints3.shift();
+	}
+	if (dataPoints4.length > dataLength) {
+		dataPoints4.shift();
+	}
+	if (dataPoints5.length > dataLength) {
+		dataPoints5.shift();
+	}
+	if (dataPoints6.length > dataLength) {
+		dataPoints6.shift();
+	}
+	if (dataPoints7.length > dataLength) {
+		dataPoints7.shift();
 	}
 
 	chart.render();
