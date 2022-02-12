@@ -5,7 +5,6 @@
 <script>
 window.onload = function () {
 
-// dataPoints creation, add one if line is added
 var dataPoints1 = [];
 var dataPoints2 = [];
 var dataPoints3 = [];
@@ -15,7 +14,7 @@ var dataPoints6 = [];
 var dataPoints7 = [];
 
 var chart = new CanvasJS.Chart("chartContainer", {
-	zoomEnabled: false,
+	zoomEnabled: true,
 	title: {
 		text: "FTC Robot Telemetry Values"
 	},
@@ -24,7 +23,6 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	},
 	axisY:{
 		title: "Values",
-		prefix: "",
 		includeZero: false
 	}, 
 	toolTip: {
@@ -37,54 +35,53 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		fontColor: "dimGrey",
 		itemclick : toggleDataSeries
 	},
-	// Line data points creations thing, add one if a line is added
 	data: [{ 
-			type: "line",
-			xValueType: "dateTime",
-			yValueFormatString: "####.00",
-			xValueFormatString: "hh:mm:ss TT",
-			showInLegend: true,
-			name: "Line 1",
-			dataPoints: dataPoints1
+		type: "line",
+		xValueType: "dateTime",
+		yValueFormatString: "####.00",
+		xValueFormatString: "hh:mm:ss TT",
+		showInLegend: true,
+		name: "Line 1",
+		dataPoints: dataPoints1
 		},
-		{ 
+		{				
 			type: "line",
 			xValueType: "dateTime",
 			yValueFormatString: "####.00",
 			showInLegend: true,
-			name: "Line 2",
+			name: "Line 2" ,
 			dataPoints: dataPoints2
 		},
-		{ 
+		{				
 			type: "line",
 			xValueType: "dateTime",
 			yValueFormatString: "####.00",
 			showInLegend: true,
-			name: "Line 3",
+			name: "Line 3" ,
 			dataPoints: dataPoints3
 		},
-		{ 
+		{				
 			type: "line",
 			xValueType: "dateTime",
 			yValueFormatString: "####.00",
 			showInLegend: true,
-			name: "Line 4",
+			name: "Line 4" ,
 			dataPoints: dataPoints4
 		},
-		{ 
+		{				
 			type: "line",
 			xValueType: "dateTime",
 			yValueFormatString: "####.00",
 			showInLegend: true,
-			name: "Line 5",
+			name: "Line 5" ,
 			dataPoints: dataPoints5
 		},
-		{ 
+		{				
 			type: "line",
 			xValueType: "dateTime",
 			yValueFormatString: "####.00",
 			showInLegend: true,
-			name: "Line 6",
+			name: "Line 6" ,
 			dataPoints: dataPoints6
 		},
 		{				
@@ -108,34 +105,30 @@ function toggleDataSeries(e) {
 }
 
 var updateInterval = 200;
-var dataLength = 20;
 
-// Lines variables creation
-var yValue1 = 0; 
-var yValue2 = 0;
-var yValue3 = 0;
-var yValue4 = 0;
-var yValue5 = 0;
-var yValue6 = 0;
-var yValue7 = 0;
 
-var xVal = 0;
+var yValue1 = 10; 
+var yValue2 = 20;
+var yValue3 = 30;
+var yValue4 = 40;
+var yValue5 = 50;
+var yValue6 = 60;
+var yValue7 = 70;
 
 var time = new Date;
-
+// starting at 9.30 am
 time.setHours(time.getHours());
 time.setMinutes(time.getMinutes());
-time.setMilliseconds(time.getMilliseconds());
 time.setSeconds(time.getSeconds());
-
+time.setMilliseconds(time.getMilliseconds());
 
 function updateChart(count) {
 	count = count || 1;
+	var deltaY1, deltaY2;
 	for (var i = 0; i < count; i++) {
-		// xVal++;
-		time.setTime(time.getTime() + updateInterval);
+		time.setTime(time.getTime()+ updateInterval);
 
-// where to input the live values for lines
+	
 	yValue1 = 10;
 	yValue2 = 20;
 	yValue3 = 30;
@@ -145,7 +138,6 @@ function updateChart(count) {
 	yValue7 = 70;
 
 
-// sends the data to the graph, add one if line is added
 	dataPoints1.push({
 		x: time.getTime(),
 		y: yValue1
@@ -176,8 +168,8 @@ function updateChart(count) {
 	});
 	}
 
-	// Legend at screen top, add one if a line needs to be added
-	chart.options.data[0].legendText = " Line 1:  " + yValue1;
+
+	chart.options.data[0].legendText = " Line 1:  " + yValue1; 
 	chart.options.data[1].legendText = " Line 2:  " + yValue2; 
 	chart.options.data[2].legendText = " Line 3:  " + yValue3; 
 	chart.options.data[3].legendText = " Line 4:  " + yValue4; 
@@ -185,33 +177,10 @@ function updateChart(count) {
 	chart.options.data[5].legendText = " Line 6:  " + yValue6; 
 	chart.options.data[6].legendText = " Line 7:  " + yValue7; 
 
-// So the x axis shifts and stuff add one if a line is added
-	if (dataPoints1.length > dataLength) {
-		dataPoints1.shift();
-	}
-	if (dataPoints2.length > dataLength) {
-		dataPoints2.shift();
-	}
-	if (dataPoints3.length > dataLength) {
-		dataPoints3.shift();
-	}
-	if (dataPoints4.length > dataLength) {
-		dataPoints4.shift();
-	}
-	if (dataPoints5.length > dataLength) {
-		dataPoints5.shift();
-	}
-	if (dataPoints6.length > dataLength) {
-		dataPoints6.shift();
-	}
-	if (dataPoints7.length > dataLength) {
-		dataPoints7.shift();
-	}
-
 	chart.render();
 }
 
-updateChart(dataLength);	
+updateChart(100);	
 setInterval(function(){updateChart()}, updateInterval);
 
 }
